@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 """Unit Test cases for Numseq Package"""
 
 import unittest
@@ -60,10 +60,13 @@ class TestNumseq(unittest.TestCase):
         for n, f in enumerate(fibs):
             self.assertEqual(fib.fib(n), fibs[n], 'The Fibonacci terms are incorrect')
 
-    # def test_fib_performance(self):
-    #     """Test speed performance of fibonacci algorithm"""
-    #     # A recursive solution will not perform well here.
-    #     pass
+    def test_fib_performance(self): # not sure what you guys are asking for here since there are no instructions for this test case in the readme, I have other time tests at the bottom
+        """Test speed performance of fibonacci algorithm"""
+        self.fib = numseq_importer('fib')
+        fib_time = timeit.Timer(
+            lambda: self.fib.fib(10000)
+            ).repeat(number=1, repeat=1)[0]
+        print(f"\nFib took {fib_time:.04f} seconds to run 10000 times")
 
     def test_square(self):
         """Test importability and correctness of square terms"""
@@ -137,7 +140,20 @@ class TestCodeQuality(unittest.TestCase):
 
     # TODO
     # test_fib_time
+    def test_fib_time(self):
+        """Test speed performance of fibonacci algorithm"""
+        fib_time = timeit.Timer(
+            lambda: self.fib.fib(10000)
+            ).repeat(number=1, repeat=1)[0]
+        self.assertLessEqual(fib_time, 1.5)
     # test_triangle_time
+    def test_triangle_time(self):
+        """Test speed performance of fibonacci algorithm"""
+        self.fib = numseq_importer('fib')
+        triangle_time = timeit.Timer(
+            lambda: self.geo.triangle(10000)
+            ).repeat(number=1, repeat=1)[0]
+        self.assertLessEqual(triangle_time, 1.5)
 
     def test_doc_strings(self):
         """Test all functions should have doc strings"""
